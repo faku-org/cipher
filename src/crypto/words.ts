@@ -1,0 +1,47 @@
+// Adjective-noun wordlist for human-readable usernames
+// Categorized for variety. Total: 128 adj × 128 nouns = 16,384 combinations
+
+export const ADJECTIVES = [
+  "cobalt", "azure", "amber", "jade", "onyx", "sage", "teal", "ivory",
+  "crimson", "indigo", "violet", "rust", "moss", "slate", "snow", "flint",
+  "quiet", "swift", "calm", "bold", "keen", "wise", "deep", "vast",
+  "oak", "pine", "ash", "elm", "maple", "birch", "cedar", "fir",
+  "noble", "royal", "grand", "lofty", "high", "true", "pure", "bright",
+  "lunar", "solar", "polar", "axial", "null", "void", "dark", "light",
+  "steel", "iron", "brass", "copper", "tin", "gold", "silver", "bronze",
+  "rapid", "steady", "fleet", "swift", "quick", "agile", "nimble", "fast",
+  "clear", "crisp", "sharp", "fine", "neat", "pure", "clean", "fresh",
+  "hardy", "stout", "firm", "solid", "sound", "strong", "tough", "rigid",
+  "mild", "soft", "warm", "cool", "chill", "frost", "dew", "mist",
+  "wild", "free", "rare", "slim", "thin", "broad", "vast", "wide",
+  "prime", "first", "key", "main", "core", "root", "base", "home",
+  "drift", "flow", "surf", "tide", "wave", "wake", "gust", "gale",
+  "peak", "crest", "rise", "summit", "ridge", "edge", "rim", "brink",
+  "halo", "nova", "star", "vega", "rigel", "orion", "lyra", "cygnus",
+  "morning", "evening", "night", "dawn", "dusk", "twilight", "aurora", "solstice",
+];
+
+export const NOUNS = [
+  "tower", "forge", "gate", "keep", "hold", "wall", "bridge", "spire",
+  "wolf", "hawk", "owl", "fox", "bear", "deer", "elk", "lynx",
+  "pine", "oak", "ash", "elm", "fir", "yew", "fig", "palm",
+  "stone", "rock", "cliff", "crag", "peak", "ridge", "valley", "cave",
+  "river", "brook", "creek", "lake", "pond", "bay", "sound", "fjord",
+  "storm", "cloud", "rain", "snow", "hail", "wind", "frost", "mist",
+  "blade", "shield", "lance", "arrow", "sword", "spear", "staff", "bow",
+  "dune", "sand", "dust", "clay", "loam", "soil", "earth", "land",
+  "reef", "coral", "kelp", "tide", "surf", "wave", "shore", "beach",
+  "ember", "flame", "spark", "glow", "blaze", "flare", "beacon", "torch",
+  "node", "link", "mesh", "ring", "core", "hub", "port", "gate",
+  "orbit", "trail", "path", "track", "lane", "road", "route", "way",
+  "drift", "glide", "slide", "cruise", "sail", "float", "hover", "soar",
+  "glyph", "rune", "sigil", "mark", "seal", "token", "sign", "badge",
+  "bytes", "bits", "code", "key", "cipher", "hash", "salt", "seed",
+  "delta", "theta", "alpha", "omega", "sigma", "phi", "psi", "zeta",
+  "coast", "plain", "field", "heath", "moor", "glen", "dale", "holm",
+  "spell", "chant", "verse", "rhyme", "runes", "lore", "tale", "myth",
+  "helm", "crown", "ring", "gem", "jewel", "orb", "scepter", "throne",
+  "raven", "crow", "rook", "jay", "dove", "swan", "crane", "heron",
+  "shallows", "depths", "abyss", "void", "rift", "gap", "fold", "crease",
+  "cube", "sphere", "prism", "cone", "axis", "pole", "helm", "wheel",
+];

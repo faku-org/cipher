@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy-950: #0F2854;
+  --color-navy-900: #152F5E;
+  --color-navy-800: #1C3A6E;
+  --color-blue-700: #1C4D8D;
+  --color-blue-500: #2C6EB0;
+  --color-mid-400: #4988C4;
+  --color-sky-300: #7AB8E0;
+  --color-sky-200: #A0D0EA;
+  --color-sky-100: #BDE8F5;
+  --color-sky-50: #E0F3FA;
+
+  --font-sans: "DM Sans", sans-serif;
+  --font-mono: "DM Mono", monospace;
+  --font-serif: "DM Serif Display", serif;
+
+  --color-cipher-accent: var(--color-sky-200);
+  --color-cipher-muted: #64748b;
+  --color-cipher-border: rgba(125, 192, 240, 0.15);
+  --color-cipher-hover: rgba(125, 192, 240, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--color-navy-950);
+  color: #e2e8f0;
+  min-height: 100vh;
+}
+
+/* Glass morphism cards */
+.glass {
+  background: rgba(15, 40, 84, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--color-cipher-border);
+}
+
+.glass-hover:hover {
+  background: var(--color-cipher-hover);
+}
+
+/* Code blocks */
+.cipher-text {
+  font-family: var(--font-mono);
+  word-break: break-all;
+  letter-spacing: 0.02em;
+}
+
+/* Focus ring */
+input:focus, textarea:focus, button:focus-visible {
+  outline: 2px solid var(--color-mid-400);
+  outline-offset: 2px;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-cipher-border);
+  border-radius: 3px;
+}
