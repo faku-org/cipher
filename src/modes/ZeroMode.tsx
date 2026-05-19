@@ -29,8 +29,8 @@ export default function ZeroMode({ identity }: Props) {
   const [cipherInput, setCipherInput] = useState("");
   const [decryptedOutput, setDecryptedOutput] = useState<string | null>(null);
 
-  const publicKeyBase64 = identity.publicKeyRaw
-    ? base64url(identity.publicKeyRaw)
+  const publicKeyBase64 = identity.publicKey
+    ? base64url(identity.publicKey)
     : "";
 
   const handleEncrypt = async (e: FormEvent) => {

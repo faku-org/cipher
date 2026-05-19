@@ -9,8 +9,8 @@ import {
 } from "./utils";
 import { computeSharedSecret, generateEphemeralKeypair } from "./identity";
 
-const AES_TAG_LENGTH = 128; // bits (16 bytes)
-const AES_IV_LENGTH = 12; // bytes (96-bit nonce, standard for GCM)
+const AES_TAG_LENGTH = 128;
+const AES_IV_LENGTH = 12;
 const ENCRYPTION_INFO = "cipher-zero-v1";
 
 /**
@@ -27,36 +27,21 @@ export async function zeroEncrypt(
   plaintext: string,
   recipientPublicKeyRaw: Uint8Array
 ): Promise<EncryptedPayload> {
-  // Import recipient's public key
-  const recipientPubKey = await crypto.subtle.importKey(
-    "raw",
-    recipientPublicKeyRaw,
-    { name: "ECDH", namedCurve: "X25519" },
-    true,
-    []
-  );
+  const ephemeral = generateEphemeralKeypair();
 
-  // Generate ephemeral keypair
-  const ephemeral = await generateEphemeralKeypair();
-
-  // Compute shared secret
-  const sharedSecret = await computeSharedSecret(
+  const sharedSecret = computeSharedSecret(
     ephemeral.privateKey,
-    recipientPubKey
+    recipientPublicKeyRaw
   );
 
-  // Derive encryption key via HKDF
   const keyBytes = await hkdf(sharedSecret, ENCRYPTION_INFO, 32);
 
-  // Import as AES-256-GCM key
   const aesKey = await crypto.subtle.importKey("raw", keyBytes, "AES-GCM", false, [
     "encrypt",
   ]);
 
-  // Generate random nonce
   const nonce = crypto.getRandomValues(new Uint8Array(AES_IV_LENGTH));
 
-  // Encrypt
   const ciphertext = new Uint8Array(
     await crypto.subtle.encrypt(
       {
@@ -69,12 +54,7 @@ export async function zeroEncrypt(
     )
   );
 
-  // Export ephemeral public key
-  const ephemeralPubKey = new Uint8Array(
-    await crypto.subtle.exportKey("raw", ephemeral.publicKey)
-  );
-
-  return { ephemeralPubKey, ciphertext, nonce };
+  return { ephemeralPubKey: ephemeral.publicKey, ciphertext, nonce };
 }
 
 /**
@@ -88,32 +68,19 @@ export async function zeroEncrypt(
  */
 export async function zeroDecrypt(
   payload: EncryptedPayload,
-  recipientPrivateKey: CryptoKey
+  recipientPrivateKey: Uint8Array
 ): Promise<string> {
-  // Import ephemeral public key
-  const ephemeralPubKey = await crypto.subtle.importKey(
-    "raw",
-    payload.ephemeralPubKey,
-    { name: "ECDH", namedCurve: "X25519" },
-    true,
-    []
-  );
-
-  // Compute shared secret
-  const sharedSecret = await computeSharedSecret(
+  const sharedSecret = computeSharedSecret(
     recipientPrivateKey,
-    ephemeralPubKey
+    payload.ephemeralPubKey
   );
 
-  // Derive encryption key
   const keyBytes = await hkdf(sharedSecret, ENCRYPTION_INFO, 32);
 
-  // Import as AES-256-GCM key
   const aesKey = await crypto.subtle.importKey("raw", keyBytes, "AES-GCM", false, [
     "decrypt",
   ]);
 
-  // Decrypt
   const plaintext = new Uint8Array(
     await crypto.subtle.decrypt(
       {
@@ -150,7 +117,6 @@ export function encodeCipherString(payload: EncryptedPayload): string {
 export function decodeCipherString(data: string): EncryptedPayload {
   const bytes = base64urlDecode(data);
   if (bytes.length < 44) {
-    // 32 (pubkey) + 12 (nonce) = 44 minimum
     throw new Error("Invalid cipher data: too short");
   }
   return {

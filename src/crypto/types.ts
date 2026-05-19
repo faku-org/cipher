@@ -2,13 +2,14 @@
 
 export interface CipherIdentity {
   username: string;
-  publicKey: CryptoKey;
-  privateKey: CryptoKey;
-  publicKeyRaw: Uint8Array;
+  /** Raw public key (32 bytes, X25519) */
+  publicKey: Uint8Array;
+  /** Raw private key (32 bytes, X25519 clamped) */
+  privateKey: Uint8Array;
 }
 
 export interface EncryptedPayload {
-  /** Ephemeral public key (for Zero Mode) */
+  /** Ephemeral public key (32 bytes, for Zero Mode) */
   ephemeralPubKey: Uint8Array;
   /** AES-GCM ciphertext */
   ciphertext: Uint8Array;
